@@ -8,30 +8,31 @@ namespace CarShop.Library
 {
     public class CarOperations : ICarOperations
     {
-        public Car[] CarArray = new Car[100];
-        //var carList = new List<Car>();
+        //public Car[] CarArray = new Car[100];
+        public List<Car> CarList = new();
 
         public void AddCarToTheList(Car car)
         {
-            var index = CarArray.Count(x => x != null);
-            CarArray[index] = car;
+            CarList.Add(car);
+            //var index = CarList.Count;
+            //CarList[index] = car;
         }
 
         public void FindAvailableCarsCount()
         {
 
-            Console.WriteLine($"Available car count is: {CarArray.Count(x => x is { IsAvailable: true })}. Their availability is marked as 'true' in the list below:");
+            Console.WriteLine($"Available car count is: {CarList.Count(x => x is { IsAvailable: true })}. Their availability is marked as 'true' in the list below:");
             ShowListOfAllCars();
         }
 
         public Car[] FindCarByYear(int year)
         {
-            return CarArray.Where(x => x != null && x.Year == year).ToArray();
+            return CarList.Where(x => x != null && x.Year == year).ToArray();
         }
 
         public void ByCar(int id)
         {
-            var selectedCar = CarArray.FirstOrDefault(x => x.Id == id);
+            var selectedCar = CarList.FirstOrDefault(x => x.Id == id);
 
             if (selectedCar != null)
             {
@@ -70,18 +71,18 @@ namespace CarShop.Library
                         Year:  {receipt.Car.Year}
                         Color: {receipt.Car.Color}
                         Date:  {DateTime.Now}
+                        Price: {receipt.Car.Price}
                     ";
         }
 
         public void ShowMenu()
         {
-            Console.WriteLine("Please type number 1..to..5 to choose your option");
-            Console.WriteLine("1. Add car to the shop");
-            Console.WriteLine("2. Check car count that are available for purchase");
-            Console.WriteLine("3. Find car by year");
-            Console.WriteLine("4. Show list of all cars in the shop");
-            Console.WriteLine("5. Buy a car");
-            Console.WriteLine("type word 'exit' to stop the program");
+            Console.WriteLine("Input number to choose your option or input word 'exit' to stop the program");
+            Console.WriteLine("1  Add car to the shop");
+            Console.WriteLine("2  Check car count that are available for purchase");
+            Console.WriteLine("3  Find car by year");
+            Console.WriteLine("4  Show list of all cars in the shop");
+            Console.WriteLine("5  Buy a car");
         }
 
         public Car CreateCarObject(int id)
@@ -145,7 +146,7 @@ namespace CarShop.Library
         {
             int i = 0;
 
-            foreach (var car in CarArray)
+            foreach (var car in CarList)
             {
                 if (car != null)
                 {
