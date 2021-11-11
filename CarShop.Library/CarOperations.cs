@@ -20,8 +20,8 @@ namespace CarShop.Library
 
         public void FindAvailableCarsCount()
         {
-
-            Console.WriteLine($"Available car count is: {CarList.Count(x => x is { IsAvailable: true })}. Their availability is marked as 'true' in the list below:");
+            UserOutput.Message1();
+            //Console.WriteLine($"Available car count is: {CarList.Count(x => x is { IsAvailable: true })}. Their availability is marked as 'true' in the list below:");
             ShowListOfAllCars();
         }
 
@@ -39,8 +39,9 @@ namespace CarShop.Library
                 selectedCar.Sold = true;
                 selectedCar.IsAvailable = false;
 
-                Console.WriteLine(
-                    $"Congratulation with purchasing car : {selectedCar.Model}. Would you like to have receipt (type 'Yes' / 'No')?");
+                UserOutput.Message2();
+                //Console.WriteLine(
+                //    $"Congratulation with purchasing car : {selectedCar.Model}. Would you like to have receipt (type 'Yes' / 'No')?");
 
                 var acceptReceipt = Console.ReadLine() == "Yes";
 
@@ -51,7 +52,7 @@ namespace CarShop.Library
             }
             else
             {
-                Console.WriteLine($"There is not car with id#: {id}");
+                Console.WriteLine($"There is no car with id#: {id}");
             }
         }
 
