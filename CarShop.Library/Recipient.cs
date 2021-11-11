@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,6 @@ namespace CarShop.Library
         public Car Car { get; set; }
         public string RecipientId { get; set; }
         public string RecipientName { get; set; }
-        public DateTime Date { get; set; }
+
     }
 }
