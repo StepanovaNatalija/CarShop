@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +19,9 @@ namespace CarShop.Library
 
         public void FindAvailableCarsCount()
         {
-            Console.WriteLine($"Available car count is: {CarArray.Count(x => x is {IsAvailable: true})}");
+
+            Console.WriteLine($"Available car count is: {CarArray.Count(x => x is { IsAvailable: true })}. Their availability is marked as 'true' in the list below:");
+            ShowListOfAllCars();
         }
 
         public Car[] FindCarByYear(int year)
@@ -35,9 +37,9 @@ namespace CarShop.Library
             {
                 selectedCar.Sold = true;
                 selectedCar.IsAvailable = false;
-                //
+
                 Console.WriteLine(
-                    $"Congratulation with purchasing car : {selectedCar.Model}. Would you like to have receipt(Yes/No)?");
+                    $"Congratulation with purchasing car : {selectedCar.Model}. Would you like to have receipt (type 'Yes' / 'No')?");
 
                 var acceptReceipt = Console.ReadLine() == "Yes";
 
@@ -48,7 +50,7 @@ namespace CarShop.Library
             }
             else
             {
-                Console.WriteLine($"There is not car with id: {id}");
+                Console.WriteLine($"There is not car with id#: {id}");
             }
         }
 
@@ -57,8 +59,7 @@ namespace CarShop.Library
             var receipt = new Recipient()
             {
                 Car = car,
-                Date = DateTime.Now,
-                RecipientId = Guid.NewGuid().ToString(),
+                RecipientId = Guid.NewGuid().ToString().Substring(0, 8),
                 RecipientName = "Car selling receipt"
             };
 
@@ -68,18 +69,19 @@ namespace CarShop.Library
                         Model: {receipt.Car.Model}
                         Year:  {receipt.Car.Year}
                         Color: {receipt.Car.Color}
-                        Date:  {receipt.Date.Date}
+                        Date:  {DateTime.Now}
                     ";
         }
 
         public void ShowMenu()
         {
-            Console.WriteLine("Please choose car operation:");
+            Console.WriteLine("Please type number 1..to..5 to choose your option");
             Console.WriteLine("1. Add car to the shop");
-            Console.WriteLine("2. Find car by is available");
+            Console.WriteLine("2. Check car count that are available for purchase");
             Console.WriteLine("3. Find car by year");
-            Console.WriteLine("4. Show list of all presented cars");
+            Console.WriteLine("4. Show list of all cars in the shop");
             Console.WriteLine("5. Buy a car");
+            Console.WriteLine("type word 'exit' to stop the program");
         }
 
         public Car CreateCarObject(int id)
@@ -89,14 +91,17 @@ namespace CarShop.Library
                 Id = id
             };
 
-            Console.WriteLine("Please add car model:");
+            Console.Write("Please add car model:");
             car.Model = Console.ReadLine();
 
-            Console.WriteLine("Add car color");
+            Console.Write("Add car color:");
             car.Color = Console.ReadLine();
 
-            Console.WriteLine("Add car year");
+            Console.Write("Add car year:");
             car.Year = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Add price:");
+            car.Price = Convert.ToDecimal(Console.ReadLine());
 
             return car;
         }
@@ -111,7 +116,7 @@ namespace CarShop.Library
                 var car = CreateCarObject(id);
                 AddCarToTheList(car);
 
-                Console.WriteLine("Do you want to create more cars?(Yes/No)");
+                Console.WriteLine("Do you want to add more cars to the shop? Type 'Yes' or 'No'");
 
                 var yesNo = Console.ReadLine();
                 if (yesNo != "Yes")
@@ -132,7 +137,7 @@ namespace CarShop.Library
 
             foreach (var car in carArray)
             {
-                Console.WriteLine($"Found car Id: {car.Id} model: {car.Model}");
+                Console.WriteLine($"Found car Id#: {car.Id} \t{car.Model} \t{car.Color} \t{car.Year} \t{car.Price} \t?available to buy: {car.IsAvailable}");
             }
         }
 
@@ -144,7 +149,7 @@ namespace CarShop.Library
             {
                 if (car != null)
                 {
-                    Console.WriteLine($"{i}. Car with {car.Id} model: {car.Model}");
+                    Console.WriteLine($"Car Id#: {car.Id} \t{car.Model} \t{car.Color} \t{car.Year} \t{car.Price} \t?available to buy: {car.IsAvailable}");
                 }
 
                 i++;
@@ -153,7 +158,7 @@ namespace CarShop.Library
 
         public void BuyCar()
         {
-            Console.WriteLine("Please provide car id from the car list");
+            Console.WriteLine("Please provide car id# from the car list that you wish to buy");
             var carId = Convert.ToInt32(Console.ReadLine());
 
             ByCar(carId);
