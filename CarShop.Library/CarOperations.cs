@@ -20,7 +20,7 @@ namespace CarShop.Library
 
         public void FindAvailableCarsCount()
         {
-            UserOutput.Message1();
+            UserOutput.Message1(CarList.Count(x => x is { IsAvailable: true }));
             //Console.WriteLine($"Available car count is: {CarList.Count(x => x is { IsAvailable: true })}. Their availability is marked as 'true' in the list below:");
             ShowListOfAllCars();
         }
@@ -39,7 +39,7 @@ namespace CarShop.Library
                 selectedCar.Sold = true;
                 selectedCar.IsAvailable = false;
 
-                UserOutput.Message2();
+                UserOutput.Message2(selectedCar.Model);
                 //Console.WriteLine(
                 //    $"Congratulation with purchasing car : {selectedCar.Model}. Would you like to have receipt (type 'Yes' / 'No')?");
 
