@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarShop.Library
 {
     public class Car
     {
         private bool isAvailable;
-
+             
+        [Key]
+        public int Ident { get; set; }
         public int Id { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }
